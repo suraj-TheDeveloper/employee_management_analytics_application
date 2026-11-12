@@ -3,3 +3,13 @@
 
 # Ada Library Information
 *.ali
+
+venv/
+__pycache__/
+*.pyc
+.env
+node_modules/
+dist/
+.streamlit/secrets.toml
+.pytest_cache/
+.vscode/
