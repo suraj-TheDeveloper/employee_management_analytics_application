@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Request
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
@@ -9,20 +9,25 @@ from app.models.user import User
 from app.schemas.auth import Token, UserOut
 from app.services import auth_service
 
+import logging
+
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
+logger = logging.getLogger("app.auth")
 
 @router.post("/login", response_model=Token)
-def login(
-    form: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)
-):
+def login(request: Request, form: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     user = auth_service.authenticate(db, form.username, form.password)
     if not user:
+        # Log the client address only. Never log the submitted username:
+        # people sometimes paste their password into that field.
+        logger.warning("login_failed ip=%s", request.client.host if request.client else "-")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect email or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
+    logger.info("login_ok user_id=%s", user.id)
     return Token(access_token=create_access_token(str(user.id)))
 
 
