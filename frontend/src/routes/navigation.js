@@ -4,4 +4,5 @@ export const navItems = [
   { to: "/departments", label: "Departments", roles: ["Admin", "HR"] },
   { to: "/leaves", label: "Leave requests", roles: ["Admin", "HR", "Employee"] },
   { to: "/users", label: "Users", roles: ["Admin"] },
+  { to: "/profile", label: "My profile", roles: ["Employee"] },
 ];

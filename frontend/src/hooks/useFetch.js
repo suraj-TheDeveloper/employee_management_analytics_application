@@ -2,15 +2,22 @@ import { useCallback, useEffect, useState } from "react";
 import { getErrorMessage } from "../services/errors";
 
 // fetcher(params, signal) -> Promise. `fetcher` must be a stable function.
-export function useFetch(fetcher, params) {
+export function useFetch(fetcher, params, { enabled = true } = {}) {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(enabled);
   const [error, setError] = useState("");
   const [reloadCount, setReloadCount] = useState(0);
 
-  const key = JSON.stringify(params); // re-run only when the values change
+  const key = JSON.stringify(params);
 
   useEffect(() => {
+    if (!enabled) {
+      setData(null);
+      setLoading(false);
+      setError("");
+      return;
+    }
+
     const controller = new AbortController();
     setLoading(true);
     setError("");
@@ -27,9 +34,8 @@ export function useFetch(fetcher, params) {
         setLoading(false);
       });
 
-    // A newer request started, or the component unmounted: cancel this one
     return () => controller.abort();
-  }, [fetcher, key, reloadCount]);
+  }, [fetcher, key, reloadCount, enabled]);
 
   const reload = useCallback(() => setReloadCount((count) => count + 1), []);
 

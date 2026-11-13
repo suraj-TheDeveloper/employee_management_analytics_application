@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export default function Modal({ title, onClose, children }) {
+export default function Modal({ title, onClose, wide = false, children }) {
   useEffect(() => {
     function handleKey(event) {
       if (event.key === "Escape") onClose();
@@ -24,7 +24,7 @@ export default function Modal({ title, onClose, children }) {
             &times;
           </button>
         </div>
-        <div className="modal-body">{children}</div>
+        <div className={`modal ${wide ? "modal-wide" : ""}`}>{children}</div>
       </div>
     </div>
   );
