@@ -15,6 +15,8 @@ class LeaveRequest(Base, TimestampMixin):
         ),
         CheckConstraint("end_date >= start_date", name="ck_leave_dates"),
         Index("ix_leave_requests_status", "status"),
+        Index("ix_leave_requests_emp_dates", "employee_id", "start_date", "end_date"),
+        Index("ix_leave_requests_dates", "start_date", "end_date"),
     )
 
     id: Mapped[int] = mapped_column(primary_key=True)

@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
 from app.core.exceptions import register_exception_handlers
-from app.routers import health, auth, departments, designations, employees
+from app.routers import health, auth, departments, designations, employees, leaves
 
 app = FastAPI(title="Employee Management API", version="1.0.0")
 register_exception_handlers(app)
@@ -21,3 +21,4 @@ app.include_router(auth.router, prefix="/api/v1")
 app.include_router(departments.router, prefix="/api/v1")
 app.include_router(designations.router, prefix="/api/v1")
 app.include_router(employees.router, prefix="/api/v1")
+app.include_router(leaves.router, prefix="/api/v1")
