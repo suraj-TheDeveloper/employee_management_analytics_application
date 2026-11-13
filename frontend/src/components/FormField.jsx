@@ -1,12 +1,12 @@
-export default function FormField({ id, label, error, ...inputProps }) {
+export default function FormField({ id, label, error, as: Control = "input", ...props }) {
   return (
     <div className="form-field">
       <label htmlFor={id}>{label}</label>
-      <input
+      <Control
         id={id}
         aria-invalid={Boolean(error)}
         aria-describedby={error ? `${id}-error` : undefined}
-        {...inputProps}
+        {...props}
       />
       {error && (
         <p id={`${id}-error`} className="field-error">

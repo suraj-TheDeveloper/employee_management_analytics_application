@@ -5,6 +5,7 @@ import ComingSoon from "../components/ComingSoon";
 import LoginPage from "../pages/LoginPage";
 import DashboardPage from "../pages/DashboardPage";
 import NotFoundPage from "../pages/NotFoundPage";
+import DepartmentsPage from "../pages/DepartmentsPage";
 
 export default function AppRoutes() {
   return (
@@ -18,7 +19,7 @@ export default function AppRoutes() {
 
           <Route element={<ProtectedRoute roles={["Admin", "HR"]} />}>
             <Route path="employees" element={<ComingSoon title="Employees" />} />
-            <Route path="departments" element={<ComingSoon title="Departments" />} />
+            <Route path="departments" element={<DepartmentsPage />} />
           </Route>
 
           <Route element={<ProtectedRoute roles={["Admin"]} />}>

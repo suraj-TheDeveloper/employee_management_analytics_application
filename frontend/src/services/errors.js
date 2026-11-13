@@ -19,3 +19,19 @@ export function getErrorMessage(error, fallback = "Something went wrong. Please 
   }
   return fallback;
 }
+
+// Maps backend validation errors to form fields: { name: "message", ... }
+export function getFieldErrors(error) {
+  const apiError = error.response?.data?.error;
+  if (apiError?.code !== "validation_error" || !Array.isArray(apiError.details)) {
+    return {};
+  }
+  const fields = {};
+  for (const detail of apiError.details) {
+    const field = detail.loc?.[detail.loc.length - 1];
+    if (typeof field === "string" && field !== "body" && !fields[field]) {
+      fields[field] = detail.msg;
+    }
+  }
+  return fields;
+}
