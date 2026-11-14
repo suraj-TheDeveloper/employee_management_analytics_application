@@ -1,15 +1,15 @@
 import { Route, Routes } from "react-router-dom";
 import AppLayout from "../layouts/AppLayout";
 import ProtectedRoute from "./ProtectedRoute";
-import ComingSoon from "../components/ComingSoon";
 import LoginPage from "../pages/LoginPage";
 import DashboardPage from "../pages/DashboardPage";
 import DepartmentsPage from "../pages/DepartmentsPage";
 import EmployeesPage from "../pages/EmployeesPage";
 import EmployeeDetailPage from "../pages/EmployeeDetailPage";
-import MyProfilePage from "../pages/MyProfilePage";
-import NotFoundPage from "../pages/NotFoundPage";
 import LeavesPage from "../pages/LeavesPage";
+import MyProfilePage from "../pages/MyProfilePage";
+import UsersPage from "../pages/UsersPage";
+import NotFoundPage from "../pages/NotFoundPage";
 
 export default function AppRoutes() {
   return (
@@ -32,7 +32,7 @@ export default function AppRoutes() {
           </Route>
 
           <Route element={<ProtectedRoute roles={["Admin"]} />}>
-            <Route path="users" element={<ComingSoon title="Users" />} />
+            <Route path="users" element={<UsersPage />} />
           </Route>
 
           <Route path="*" element={<NotFoundPage />} />
