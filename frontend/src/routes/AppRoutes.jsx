@@ -9,6 +9,7 @@ import EmployeesPage from "../pages/EmployeesPage";
 import EmployeeDetailPage from "../pages/EmployeeDetailPage";
 import MyProfilePage from "../pages/MyProfilePage";
 import NotFoundPage from "../pages/NotFoundPage";
+import LeavesPage from "../pages/LeavesPage";
 
 export default function AppRoutes() {
   return (
@@ -18,7 +19,7 @@ export default function AppRoutes() {
       <Route element={<ProtectedRoute />}>
         <Route element={<AppLayout />}>
           <Route index element={<DashboardPage />} />
-          <Route path="leaves" element={<ComingSoon title="Leave requests" />} />
+          <Route path="leaves" element={<LeavesPage />} />
 
           <Route element={<ProtectedRoute roles={["Employee"]} />}>
             <Route path="profile" element={<MyProfilePage />} />
