@@ -12,7 +12,7 @@ export default function Modal({ title, onClose, wide = false, children }) {
   return (
     <div className="modal-backdrop" onMouseDown={onClose}>
       <div
-        className="modal"
+        className={`modal ${wide ? "modal-wide" : ""}`}
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
@@ -24,7 +24,7 @@ export default function Modal({ title, onClose, wide = false, children }) {
             &times;
           </button>
         </div>
-        <div className={`modal ${wide ? "modal-wide" : ""}`}>{children}</div>
+        <div className="modal-body">{children}</div>
       </div>
     </div>
   );
